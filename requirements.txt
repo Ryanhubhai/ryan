@@ -1,0 +1,3 @@
+pymino
+gtts
+amino.fix
